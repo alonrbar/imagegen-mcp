@@ -21,15 +21,16 @@
   },
   "license": "ISC",
   "type": "module",
-  "main": "dist/index.js",
+  "main": "src/index.ts",
+  "engines": {
+    "bun": ">=1.0.0"
+  },
   "bin": {
     "imagegen-mcp": "./bin/imagegen-mcp.js"
   },
   "scripts": {
-    "build": "tsc",
-    "prepare": "npm run build",
-    "start": "node dist/index.js",
-    "dev": "tsx src/index.ts",
+    "start": "bun run src/index.ts",
+    "dev": "bun --watch src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
@@ -38,15 +39,12 @@
     "dotenv": "^16.3.1",
     "form-data": "^4.0.2",
     "formdata-node": "^6.0.3",
-    "install": "^0.13.0",
-    "node-fetch": "^3.3.2",
-    "npm": "^11.3.0",
     "uuid": "^11.1.0"
   },
   "devDependencies": {
+    "@types/bun": "^1.2.0",
     "@types/node": "^20.11.0",
     "@types/uuid": "^10.0.0",
-    "tsx": "^4.7.0",
     "typescript": "^5.3.3"
   }
 }

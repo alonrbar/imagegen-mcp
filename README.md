@@ -19,20 +19,19 @@ Here's an example of generating an image directly in Cursor using the `text-to-i
   <img src="https://raw.githubusercontent.com/spartanz51/imagegen-mcp/refs/heads/main/cursor.gif" alt="Example usage in Cursor" width="600"/>
 </div>
 
-## Quick Run with npx
+## Quick Run with bunx
 
-You can run the server directly from npm using `npx` (requires Node.js and npm):
+You can run the published package with [Bun](https://bun.sh) (no clone required):
 
 ```bash
-npx imagegen-mcp [options]
+bunx imagegen-mcp [options]
 ```
 
 See the [Running the Server](#running-the-server) section for more details on options and running locally.
 
 ## Prerequisites
 
-* Node.js (v18 or later recommended)
-* npm or yarn
+* [Bun](https://bun.sh/docs/installation) (v1.0 or later)
 * An OpenAI API key
 
 ## Integration with Cursor
@@ -51,7 +50,7 @@ You can easily integrate this server with Cursor to use its image generation cap
     ```json
     "mcpServers": [
         "image-generator-gpt-image": {
-            "command": "npx imagegen-mcp --models gpt-image-1",
+            "command": "bunx imagegen-mcp --models gpt-image-1",
             "env": {
                 "OPENAI_API_KEY": "xxx"
             }
@@ -79,9 +78,7 @@ Cursor should now recognize the "OpenAI Image Gen" server, and its tools (`text-
 2. **Install dependencies:**
 
     ```bash
-    npm install
-    # or
-    yarn install
+    bun install
     ```
 
 3. **Configure Environment Variables:**
@@ -97,39 +94,38 @@ Cursor should now recognize the "OpenAI Image Gen" server, and its tools (`text-
     OPENAI_API_KEY=your_openai_api_key_here
     ```
 
-## Building
-
-To build the TypeScript code into JavaScript:
-
-```bash
-npm run build
-# or
-yarn build
-```
-
-This will compile the code into the `dist` directory.
-
 ## Running the Server
 
-This section provides details on running the server locally after cloning and setup. For a quick start without cloning, see the [Quick Run with npx](#quick-run-with-npx) section.
+This section describes running the server locally after cloning. For a quick start from the registry, see [Quick Run with bunx](#quick-run-with-bunx).
 
-**Using ts-node (for development):**
+**Production:**
 
 ```bash
-npx ts-node src/index.ts [options]
+bun run start
 ```
 
-**Using the compiled code:**
+**Development (watch mode):**
 
 ```bash
-node dist/index.js [options]
+bun run dev
+```
+
+Add any CLI options after `--`, for example:
+
+```bash
+bun run dev -- --models gpt-image-1
+```
+
+**Run the entry file explicitly:**
+
+```bash
+bun run src/index.ts [options]
 ```
 
 **Options:**
 
 * `--models <model1> <model2> ...`: Specify which OpenAI models the server should allow. If not provided, it defaults to allowing all models defined in `src/libs/openaiImageClient.ts` (currently gpt-image-1, dall-e-2, dall-e-3).
-  * Example using `npx` (also works for local runs): `... --models gpt-image-1 dall-e-3`
-  * Example after cloning: `node dist/index.js --models dall-e-3 dall-e-2`
+  * Examples: `bunx imagegen-mcp --models gpt-image-1 dall-e-3` or `bun run src/index.ts --models dall-e-3 dall-e-2`
 
 The server will start and listen for MCP requests via standard input/output (using `StdioServerTransport`).
 
@@ -179,11 +175,6 @@ Edits an existing image based on a text prompt and optional mask.
 
 * `content`: An array containing:
   * A `text` object containing the path to the saved temporary image file (e.g., `/tmp/uuid.png`).
-
-## Development
-
-* **Linting:** `npm run lint` or `yarn lint`
-* **Formatting:** `npm run format` or `yarn format` (if configured in `package.json`)
 
 ## Contributing
 
