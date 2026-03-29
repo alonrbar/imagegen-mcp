@@ -4,7 +4,7 @@ import { z } from "zod";
 import {
 	OpenAIImageClient,
 	SIZES, STYLES, RESPONSE_FORMATS, OUTPUT_FORMATS, MODERATION_LEVELS, BACKGROUNDS, QUALITIES
-} from "./libs/openaiImageClient.js";
+} from "./openaiImageClient.js";
 
 import dotenv from "dotenv";
 dotenv.config();
